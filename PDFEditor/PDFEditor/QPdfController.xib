@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QPdfController" customModule="PDFEditor" customModuleProvider="target">
+            <connections>
+                <outlet property="annotationView" destination="8OG-Ms-mKC" id="LOu-V8-chN"/>
+                <outlet property="colorButton" destination="MoO-VD-4Be" id="HYM-rv-dZA"/>
+                <outlet property="colorsPalate" destination="Gmj-vU-8TB" id="Jkf-f1-aWD"/>
+                <outlet property="pdfView" destination="x3d-Zl-7cb" id="AOs-dN-LJV"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NsL-AQ-G6u">
+                    <rect key="frame" x="0.0" y="59" width="393" height="70"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="icA-OG-qZe">
+                            <rect key="frame" x="0.0" y="18" width="393" height="34"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wFd-Io-xij">
+                                    <rect key="frame" x="0.0" y="0.0" width="65.666666666666671" height="34"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="pencil.tip" catalog="system"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wG2-QL-HzK">
+                                    <rect key="frame" x="65.666666666666686" y="0.0" width="65.333333333333314" height="34"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="hand.point.up.left.fill" catalog="system"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MoO-VD-4Be">
+                                    <rect key="frame" x="131" y="0.0" width="65.666666666666686" height="34"/>
+                                    <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <connections>
+                                        <action selector="colorButtonTapped:" destination="-1" eventType="touchUpInside" id="UKr-PH-8Q2"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hZb-KX-fIl">
+                                    <rect key="frame" x="196.66666666666666" y="0.0" width="65.333333333333343" height="34"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="eraser.fill" catalog="system"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qh4-hp-oYM">
+                                    <rect key="frame" x="262" y="0.0" width="65.666666666666686" height="34"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="checkmark" catalog="system"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F5r-qY-4iX">
+                                    <rect key="frame" x="327.66666666666669" y="0.0" width="65.333333333333314" height="34"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="xmark" catalog="system"/>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="icA-OG-qZe" firstAttribute="leading" secondItem="NsL-AQ-G6u" secondAttribute="leading" id="2eE-L1-30g"/>
+                        <constraint firstItem="icA-OG-qZe" firstAttribute="centerY" secondItem="NsL-AQ-G6u" secondAttribute="centerY" id="HeR-fx-xdp"/>
+                        <constraint firstAttribute="height" constant="70" id="R2M-jZ-3fI"/>
+                        <constraint firstAttribute="trailing" secondItem="icA-OG-qZe" secondAttribute="trailing" id="X2s-US-s1R"/>
+                    </constraints>
+                </view>
+                <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Gmj-vU-8TB">
+                    <rect key="frame" x="129" y="134" width="135" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qnP-gj-sxg">
+                            <rect key="frame" x="0.0" y="0.0" width="30" height="40"/>
+                            <color key="backgroundColor" systemColor="systemBlueColor"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <connections>
+                                <action selector="blueTapped:" destination="-1" eventType="touchUpInside" id="hGk-2C-TYo"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hVy-Xm-6J0">
+                            <rect key="frame" x="35" y="0.0" width="30" height="40"/>
+                            <color key="backgroundColor" systemColor="systemRedColor"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <connections>
+                                <action selector="redTapped:" destination="-1" eventType="touchUpInside" id="cAy-Xf-Fdv"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3C2-nH-jlR">
+                            <rect key="frame" x="70" y="0.0" width="30" height="40"/>
+                            <color key="backgroundColor" systemColor="systemGreenColor"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <connections>
+                                <action selector="greenTapped:" destination="-1" eventType="touchUpInside" id="YuW-yY-Jcu"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JBz-8O-ZOD">
+                            <rect key="frame" x="105" y="0.0" width="30" height="40"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <connections>
+                                <action selector="blackTapped:" destination="-1" eventType="touchUpInside" id="ofV-6b-b0R"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="BU4-e6-Dm9"/>
+                    </constraints>
+                </stackView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x3d-Zl-7cb" customClass="PDFView">
+                    <rect key="frame" x="0.0" y="129" width="393" height="689"/>
+                    <subviews>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8OG-Ms-mKC">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="689"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="8OG-Ms-mKC" firstAttribute="top" secondItem="x3d-Zl-7cb" secondAttribute="top" id="Ods-1H-Gat"/>
+                        <constraint firstItem="8OG-Ms-mKC" firstAttribute="leading" secondItem="x3d-Zl-7cb" secondAttribute="leading" id="YLB-ao-THr"/>
+                        <constraint firstAttribute="bottom" secondItem="8OG-Ms-mKC" secondAttribute="bottom" id="gRO-9H-A18"/>
+                        <constraint firstAttribute="trailing" secondItem="8OG-Ms-mKC" secondAttribute="trailing" id="vyK-zE-WyH"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="x3d-Zl-7cb" secondAttribute="bottom" id="26U-IR-1ey"/>
+                <constraint firstItem="NsL-AQ-G6u" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Cej-zc-BAX"/>
+                <constraint firstItem="Gmj-vU-8TB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="F5e-vu-44j"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="NsL-AQ-G6u" secondAttribute="trailing" id="VRt-c5-v8N"/>
+                <constraint firstItem="x3d-Zl-7cb" firstAttribute="top" secondItem="NsL-AQ-G6u" secondAttribute="bottom" id="aRp-Gs-gpd"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="x3d-Zl-7cb" secondAttribute="trailing" id="b47-9x-Dwa"/>
+                <constraint firstItem="NsL-AQ-G6u" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="d7T-hY-eFR"/>
+                <constraint firstItem="x3d-Zl-7cb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="haB-kx-eQp"/>
+                <constraint firstItem="Gmj-vU-8TB" firstAttribute="top" secondItem="NsL-AQ-G6u" secondAttribute="bottom" constant="5" id="zF5-AG-o5o"/>
+            </constraints>
+            <point key="canvasLocation" x="140" y="20"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="checkmark" catalog="system" width="128" height="114"/>
+        <image name="eraser.fill" catalog="system" width="128" height="119"/>
+        <image name="hand.point.up.left.fill" catalog="system" width="120" height="128"/>
+        <image name="pencil.tip" catalog="system" width="99" height="128"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
