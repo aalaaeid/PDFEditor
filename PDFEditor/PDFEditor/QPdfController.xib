@@ -32,11 +32,17 @@
                                     <rect key="frame" x="0.0" y="0.0" width="65.666666666666671" height="34"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="pencil.tip" catalog="system"/>
+                                    <connections>
+                                        <action selector="penTapped:" destination="-1" eventType="touchUpInside" id="Y0x-Gx-iaE"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wG2-QL-HzK">
                                     <rect key="frame" x="65.666666666666686" y="0.0" width="65.333333333333314" height="34"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="hand.point.up.left.fill" catalog="system"/>
+                                    <connections>
+                                        <action selector="handTapped:" destination="-1" eventType="touchUpInside" id="uP7-pN-wBC"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MoO-VD-4Be">
                                     <rect key="frame" x="131" y="0.0" width="65.666666666666686" height="34"/>
@@ -50,6 +56,9 @@
                                     <rect key="frame" x="196.66666666666666" y="0.0" width="65.333333333333343" height="34"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="eraser.fill" catalog="system"/>
+                                    <connections>
+                                        <action selector="eraseTapped:" destination="-1" eventType="touchUpInside" id="Bjf-lI-6nA"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qh4-hp-oYM">
                                     <rect key="frame" x="262" y="0.0" width="65.666666666666686" height="34"/>
@@ -115,7 +124,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x3d-Zl-7cb" customClass="PDFView">
                     <rect key="frame" x="0.0" y="129" width="393" height="689"/>
                     <subviews>
-                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8OG-Ms-mKC">
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8OG-Ms-mKC" customClass="DrawSignatureView" customModule="PDFEditor" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="689"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>

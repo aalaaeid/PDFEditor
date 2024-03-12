@@ -20,9 +20,8 @@ class QPdfController: UIViewController {
     @IBOutlet weak var pdfView: PDFView!
     @IBOutlet weak var colorButton: UIButton!
     @IBOutlet weak var colorsPalate: UIStackView!
-    @IBOutlet weak var annotationView: UIView!
+    @IBOutlet weak var annotationView: DrawSignatureView!
     
-    var selectedColor:UIColor = .blue
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +37,9 @@ class QPdfController: UIViewController {
         
         view.bringSubviewToFront(colorsPalate)
         pdfView.bringSubviewToFront(annotationView)
+        
+        annotationView.delegate = self
+        annotationView.strokeColor = .blue
      
     }
     
@@ -45,6 +47,20 @@ class QPdfController: UIViewController {
        
         UIView.animate(withDuration: 0.25) {
             self.colorsPalate.alpha = 1
+        }
+    }
+    @IBAction func penTapped(_ sender: Any) {
+        annotationView.isHidden = false
+        UIView.animate(withDuration: 0.25) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @IBAction func handTapped(_ sender: Any) {
+        annotationView.isHidden = true
+        
+        UIView.animate(withDuration: 0.25) {
+            self.view.layoutIfNeeded()
         }
     }
     
@@ -62,6 +78,9 @@ class QPdfController: UIViewController {
  
         handleColorSelectionWith(color: .black)
     }
+    @IBAction func eraseTapped(_ sender: Any) {
+        annotationView.clear()
+    }
     
     
     func handleColorSelectionWith(color: SelectedColor) {
@@ -69,19 +88,19 @@ class QPdfController: UIViewController {
         switch color {
         case .red:
             colorButton.backgroundColor = .red
-            selectedColor = .red
+            annotationView.strokeColor = .red
 
         case .blue:
             colorButton.backgroundColor = .blue
-            selectedColor = .blue
+            annotationView.strokeColor = .blue
 
         case .black:
             colorButton.backgroundColor = .black
-            selectedColor = .black
+            annotationView.strokeColor = .black
 
         case .green:
             colorButton.backgroundColor = .green
-            selectedColor = .green
+            annotationView.strokeColor = .green
         }
 
         UIView.animate(withDuration: 0.25) {
@@ -92,4 +111,25 @@ class QPdfController: UIViewController {
 
 
 
+}
+
+
+extension QPdfController: SignatureDelegate {
+    func didStart() {
+        print("didStart 🎃")
+    }
+    
+    func didFinish(_ view: DrawSignatureView) {
+        print("didFinish")
+    }
+    
+    func startedDrawing() {
+        print("startedDrawing")
+    }
+    
+    func finishedDrawing() {
+        print("finishedDrawing")
+    }
+    
+    
 }

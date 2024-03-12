@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D9ED9132BA08850001D3DA5 /* DrawSignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9ED9122BA08850001D3DA5 /* DrawSignatureView.swift */; };
 		2DBC9AEE2B9F140100259576 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBC9AED2B9F140100259576 /* AppDelegate.swift */; };
 		2DBC9AF02B9F140100259576 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBC9AEF2B9F140100259576 /* SceneDelegate.swift */; };
 		2DBC9AF72B9F140200259576 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DBC9AF62B9F140200259576 /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2D9ED9122BA08850001D3DA5 /* DrawSignatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawSignatureView.swift; sourceTree = "<group>"; };
 		2DBC9AEA2B9F140100259576 /* PDFEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PDFEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DBC9AED2B9F140100259576 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2DBC9AEF2B9F140100259576 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				2DBC9AED2B9F140100259576 /* AppDelegate.swift */,
 				2DBC9AEF2B9F140100259576 /* SceneDelegate.swift */,
 				2DBC9B1D2B9F16FB00259576 /* QPdfController.swift */,
+				2D9ED9122BA08850001D3DA5 /* DrawSignatureView.swift */,
 				2DBC9B212B9F1A0F00259576 /* sample.pdf */,
 				2DBC9B1E2B9F16FB00259576 /* QPdfController.xib */,
 				2DBC9AF62B9F140200259576 /* Assets.xcassets */,
@@ -263,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DBC9AEE2B9F140100259576 /* AppDelegate.swift in Sources */,
+				2D9ED9132BA08850001D3DA5 /* DrawSignatureView.swift in Sources */,
 				2DBC9B1F2B9F16FB00259576 /* QPdfController.swift in Sources */,
 				2DBC9AF02B9F140100259576 /* SceneDelegate.swift in Sources */,
 			);
