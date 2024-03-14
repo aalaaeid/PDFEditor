@@ -38,7 +38,6 @@ class QPdfController: UIViewController {
         view.bringSubviewToFront(colorsPalate)
         pdfView.bringSubviewToFront(annotationView)
         
-        annotationView.delegate = self
         annotationView.strokeColor = .blue
      
     }
@@ -50,18 +49,25 @@ class QPdfController: UIViewController {
         }
     }
     @IBAction func penTapped(_ sender: Any) {
-        annotationView.isHidden = false
-        UIView.animate(withDuration: 0.25) {
-            self.view.layoutIfNeeded()
-        }
+        
+        annotationView.isUserInteractionEnabled = true
+        
     }
     
     @IBAction func handTapped(_ sender: Any) {
-        annotationView.isHidden = true
+        annotationView.isUserInteractionEnabled = false
         
-        UIView.animate(withDuration: 0.25) {
-            self.view.layoutIfNeeded()
+        guard let currentPage = pdfView.currentPage  else { return print("currentPageIndex is nil") }
+      
+     
+
+        UIView.animate(withDuration: 0.2) {
+            self.annotationView.drawSignature(on: currentPage)
+        } completion: { _ in
+            self.annotationView.clear()
         }
+
+
     }
     
     @IBAction func blueTapped(_ sender: Any) {
@@ -80,6 +86,27 @@ class QPdfController: UIViewController {
     }
     @IBAction func eraseTapped(_ sender: Any) {
         annotationView.clear()
+    }
+    
+    @IBAction func confirmSignatureTapped(_ sender: Any) {
+  
+       
+        guard let currentPageIndex = pdfView.currentPage?.pageRef?.pageNumber else { return print("currentPageIndex is nil") }
+
+        
+        guard let cgPDFDucomunt = pdfView.document?.documentRef else { return print("cgPDFDucomunt is nil") }
+        
+        guard let pdfData = annotationView.drawOnPDF(cgPDFDucomunt: cgPDFDucomunt, pageIndex: currentPageIndex)
+        else { return print("pdfData is nil") }
+        
+        guard let modifiedPDf = PDFDocument(data: pdfData) else { return print("document is nil") }
+        
+        annotationView.clear()
+        annotationView.isUserInteractionEnabled = false
+//        pdfView.document = modifiedPDf
+    }
+    
+    @IBAction func dismissSignatureTapped(_ sender: Any) {
     }
     
     
@@ -110,7 +137,7 @@ class QPdfController: UIViewController {
     
 
 
-
+    
 }
 
 
@@ -120,6 +147,9 @@ extension QPdfController: SignatureDelegate {
     }
     
     func didFinish(_ view: DrawSignatureView) {
+ 
+        
+  
         print("didFinish")
     }
     
@@ -128,8 +158,20 @@ extension QPdfController: SignatureDelegate {
     }
     
     func finishedDrawing() {
+
+
         print("finishedDrawing")
     }
     
     
 }
+
+
+extension QPdfController {
+   
+ 
+    
+
+}
+
+

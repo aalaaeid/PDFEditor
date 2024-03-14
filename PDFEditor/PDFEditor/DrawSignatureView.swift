@@ -7,6 +7,8 @@
 
 import UIKit
 import CoreGraphics
+import PDFKit
+import Combine
 
 @IBDesignable
 final public class DrawSignatureView: UIView {
@@ -18,7 +20,9 @@ final public class DrawSignatureView: UIView {
     fileprivate var path = UIBezierPath()
     fileprivate var points = [CGPoint](repeating: CGPoint(), count: 5)
     fileprivate var controlPoint = 0
-    
+    fileprivate var touchPointTracker: PassthroughSubject<CGPoint, Never> = .init()
+    fileprivate var bag: Set<AnyCancellable> = []
+
     
     // MARK: - Public properties
     @IBInspectable public var strokeWidth: CGFloat = 2.0 {
@@ -107,6 +111,7 @@ final public class DrawSignatureView: UIView {
             let touchPoint = points[0]
             path.move(to: CGPoint(x: touchPoint.x, y: touchPoint.y))
             path.addLine(to: CGPoint(x: touchPoint.x, y: touchPoint.y))
+            touchPointTracker.send(touchPoint)
             setNeedsDisplay()
         } else {
             controlPoint = 0
@@ -149,30 +154,80 @@ final public class DrawSignatureView: UIView {
     }
 
     
-    
-    // Saves the Signature as a Vector PDF Data blob
-    public func getPDFSignature() -> Data {
-        let mutableData = CFDataCreateMutable(nil, 0)
-
-        guard let dataConsumer = CGDataConsumer.init(data: mutableData!) else { fatalError() }
-
+    public func drawSignature(on page: PDFPage) {
         var rect = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
+        
+        
+        let annotation = PDFAnnotation(bounds: rect, forType: .ink, withProperties: nil)
+        
+        annotation.color = strokeColor
+        
+        touchPointTracker.receive(on: RunLoop.main)
+            .sink { [weak self] touchPoint in
+                guard let self = self else { return }
+                
+                path.move(to: CGPoint(x: touchPoint.x, y: touchPoint.y))
+                path.addLine(to: CGPoint(x: touchPoint.x, y: touchPoint.y))
+                
+            }.store(in: &bag)
+        
+        
+        // Add the annotation to the page
+        annotation.add(path)
+        page.addAnnotation(annotation)
+    }
+    
 
-        guard let pdfContext = CGContext(consumer: dataConsumer, mediaBox: &rect, nil) else { fatalError() }
+    
+    func drawOnPDF(cgPDFDucomunt:CGPDFDocument ,pageIndex:Int) -> Data? {
+     
+     let pdf = cgPDFDucomunt
+     
+     let pageCount = pdf.numberOfPages
+         
+     let mutableData = NSMutableData()
+     UIGraphicsBeginPDFContextToData(mutableData,CGRect.zero, nil)
+     
+     for index in 1...pageCount {
+         
+         let page =  pdf.page(at: index)
+         
+         let pageFrame = page?.getBoxRect(.mediaBox)
+         
+         UIGraphicsBeginPDFPageWithInfo(pageFrame!, nil)
 
-        pdfContext.beginPDFPage(nil)
-        pdfContext.translateBy(x: 0, y: frame.height)
-        pdfContext.scaleBy(x: 1, y: -1)
-        pdfContext.addPath(path.cgPath)
-        pdfContext.setStrokeColor(strokeColor.cgColor)
-        pdfContext.strokePath()
-        pdfContext.saveGState()
-        pdfContext.endPDFPage()
-        pdfContext.closePDF()
+         guard let ctx = UIGraphicsGetCurrentContext() else {return nil}
+    
+         ctx.saveGState()
+         ctx.scaleBy(x: 1, y: -1)
+         ctx.translateBy(x: 0, y: -pageFrame!.size.height)
+         
+         ctx.drawPDFPage(page!)
+         ctx.restoreGState()
+         
+         if index == pageIndex {
+             let image = getSignature() ?? UIImage()
+             var newRectImage: CGRect?
+             
+             newRectImage =
+             CGRect(x: 0, y: ((pageFrame?.height)!) - bounds.height ,
+                                   width: bounds.width,
+                                   height: bounds.height)
+             
+             if let newRectImage = newRectImage{
+                 image.draw(in: newRectImage)
+             }
+       
+         }
+         
+     }
+   
+     UIGraphicsEndPDFContext()
+     
+     let pdfData = mutableData as Data
+         
+     return pdfData
 
-        let data = mutableData! as Data
-
-        return data
     }
 
     

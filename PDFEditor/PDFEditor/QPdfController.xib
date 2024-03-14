@@ -22,7 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NsL-AQ-G6u">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NsL-AQ-G6u" userLabel="headerView">
                     <rect key="frame" x="0.0" y="59" width="393" height="70"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="icA-OG-qZe">
@@ -64,11 +64,17 @@
                                     <rect key="frame" x="262" y="0.0" width="65.666666666666686" height="34"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="checkmark" catalog="system"/>
+                                    <connections>
+                                        <action selector="confirmSignatureTapped:" destination="-1" eventType="touchUpInside" id="ECI-GL-EiF"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F5r-qY-4iX">
                                     <rect key="frame" x="327.66666666666669" y="0.0" width="65.333333333333314" height="34"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="xmark" catalog="system"/>
+                                    <connections>
+                                        <action selector="dismissSignatureTapped:" destination="-1" eventType="touchUpInside" id="UMB-5R-3Th"/>
+                                    </connections>
                                 </button>
                             </subviews>
                         </stackView>
@@ -121,12 +127,13 @@
                         <constraint firstAttribute="height" constant="40" id="BU4-e6-Dm9"/>
                     </constraints>
                 </stackView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x3d-Zl-7cb" customClass="PDFView">
-                    <rect key="frame" x="0.0" y="129" width="393" height="689"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x3d-Zl-7cb" userLabel="pdfView" customClass="PDFView">
+                    <rect key="frame" x="0.0" y="134" width="393" height="684"/>
                     <subviews>
-                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8OG-Ms-mKC" customClass="DrawSignatureView" customModule="PDFEditor" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="689"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8OG-Ms-mKC" customClass="DrawSignatureView" customModule="PDFEditor" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="684"/>
+                            <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="0.21394026360544219" colorSpace="custom" customColorSpace="sRGB"/>
+                            <gestureRecognizers/>
                         </view>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -139,13 +146,13 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="x3d-Zl-7cb" secondAttribute="bottom" id="26U-IR-1ey"/>
                 <constraint firstItem="NsL-AQ-G6u" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Cej-zc-BAX"/>
                 <constraint firstItem="Gmj-vU-8TB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="F5e-vu-44j"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="NsL-AQ-G6u" secondAttribute="trailing" id="VRt-c5-v8N"/>
-                <constraint firstItem="x3d-Zl-7cb" firstAttribute="top" secondItem="NsL-AQ-G6u" secondAttribute="bottom" id="aRp-Gs-gpd"/>
+                <constraint firstItem="x3d-Zl-7cb" firstAttribute="top" secondItem="NsL-AQ-G6u" secondAttribute="bottom" constant="5" id="aRp-Gs-gpd"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="x3d-Zl-7cb" secondAttribute="trailing" id="b47-9x-Dwa"/>
                 <constraint firstItem="NsL-AQ-G6u" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="d7T-hY-eFR"/>
                 <constraint firstItem="x3d-Zl-7cb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="haB-kx-eQp"/>
