@@ -20,54 +20,54 @@ class QPdfController: UIViewController {
     @IBOutlet weak var pdfView: PDFView!
     @IBOutlet weak var colorButton: UIButton!
     @IBOutlet weak var colorsPalate: UIStackView!
-    @IBOutlet weak var annotationView: DrawSignatureView!
-    
-    
+    @IBOutlet weak var thumbnailView: PDFThumbnailView!
+
+    private let pdfDrawer = PDFDrawer()
+    let pdfDrawingGestureRecognizer = DrawingGestureRecognizer()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+      
+        pdfView.addGestureRecognizer(pdfDrawingGestureRecognizer)
+        pdfDrawingGestureRecognizer.drawingDelegate = pdfDrawer
+        pdfDrawer.pdfView = pdfView
         
         pdfView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         pdfView.autoScales = true
+        pdfView.pageBreakMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         pdfView.displayMode = .singlePageContinuous
-
+        pdfView.usePageViewController(true)
         if let fileURL = Bundle.main.url(forResource: "sample", withExtension: "pdf") {
             pdfView.document = PDFDocument(url: fileURL)
         }
         
         view.bringSubviewToFront(colorsPalate)
-        pdfView.bringSubviewToFront(annotationView)
+ 
         
-        annotationView.strokeColor = .blue
-     
+        thumbnailView.pdfView = pdfView
+        thumbnailView.thumbnailSize = CGSize(width: 70, height: 70)
+        thumbnailView.layoutMode = .horizontal
+        thumbnailView.backgroundColor = .white
+        
     }
     
+
+
     @IBAction func colorButtonTapped(_ sender: Any) {
        
         UIView.animate(withDuration: 0.25) {
             self.colorsPalate.alpha = 1
         }
     }
+    
     @IBAction func penTapped(_ sender: Any) {
-        
-        annotationView.isUserInteractionEnabled = true
-        
+        pdfDrawingGestureRecognizer.isEnabled = true
+  
     }
     
     @IBAction func handTapped(_ sender: Any) {
-        annotationView.isUserInteractionEnabled = false
-        
-        guard let currentPage = pdfView.currentPage  else { return print("currentPageIndex is nil") }
-      
-     
-
-        UIView.animate(withDuration: 0.2) {
-            self.annotationView.drawSignature(on: currentPage)
-        } completion: { _ in
-            self.annotationView.clear()
-        }
-
-
+        pdfDrawingGestureRecognizer.isEnabled = false
     }
     
     @IBAction func blueTapped(_ sender: Any) {
@@ -84,26 +84,20 @@ class QPdfController: UIViewController {
  
         handleColorSelectionWith(color: .black)
     }
+    
     @IBAction func eraseTapped(_ sender: Any) {
-        annotationView.clear()
+
     }
     
     @IBAction func confirmSignatureTapped(_ sender: Any) {
-  
-       
-        guard let currentPageIndex = pdfView.currentPage?.pageRef?.pageNumber else { return print("currentPageIndex is nil") }
-
-        
-        guard let cgPDFDucomunt = pdfView.document?.documentRef else { return print("cgPDFDucomunt is nil") }
-        
-        guard let pdfData = annotationView.drawOnPDF(cgPDFDucomunt: cgPDFDucomunt, pageIndex: currentPageIndex)
+   
+        guard let pdfData = pdfDrawer.renderPDF()
         else { return print("pdfData is nil") }
         
         guard let modifiedPDf = PDFDocument(data: pdfData) else { return print("document is nil") }
-        
-        annotationView.clear()
-        annotationView.isUserInteractionEnabled = false
-//        pdfView.document = modifiedPDf
+        pdfView.document = modifiedPDf
+
+        pdfDrawingGestureRecognizer.isEnabled = false
     }
     
     @IBAction func dismissSignatureTapped(_ sender: Any) {
@@ -115,19 +109,19 @@ class QPdfController: UIViewController {
         switch color {
         case .red:
             colorButton.backgroundColor = .red
-            annotationView.strokeColor = .red
+            pdfDrawer.color = .red
 
         case .blue:
             colorButton.backgroundColor = .blue
-            annotationView.strokeColor = .blue
+            pdfDrawer.color = .blue
 
         case .black:
             colorButton.backgroundColor = .black
-            annotationView.strokeColor = .black
+            pdfDrawer.color = .black
 
         case .green:
             colorButton.backgroundColor = .green
-            annotationView.strokeColor = .green
+            pdfDrawer.color = .green
         }
 
         UIView.animate(withDuration: 0.25) {
@@ -141,37 +135,5 @@ class QPdfController: UIViewController {
 }
 
 
-extension QPdfController: SignatureDelegate {
-    func didStart() {
-        print("didStart 🎃")
-    }
-    
-    func didFinish(_ view: DrawSignatureView) {
- 
-        
-  
-        print("didFinish")
-    }
-    
-    func startedDrawing() {
-        print("startedDrawing")
-    }
-    
-    func finishedDrawing() {
-
-
-        print("finishedDrawing")
-    }
-    
-    
-}
-
-
-extension QPdfController {
-   
- 
-    
-
-}
 
 

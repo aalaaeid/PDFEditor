@@ -10,10 +10,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QPdfController" customModule="PDFEditor" customModuleProvider="target">
             <connections>
-                <outlet property="annotationView" destination="8OG-Ms-mKC" id="LOu-V8-chN"/>
                 <outlet property="colorButton" destination="MoO-VD-4Be" id="HYM-rv-dZA"/>
                 <outlet property="colorsPalate" destination="Gmj-vU-8TB" id="Jkf-f1-aWD"/>
                 <outlet property="pdfView" destination="x3d-Zl-7cb" id="AOs-dN-LJV"/>
+                <outlet property="thumbnailView" destination="qUv-XL-Qb5" id="hou-7N-6mD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -128,33 +128,28 @@
                     </constraints>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x3d-Zl-7cb" userLabel="pdfView" customClass="PDFView">
-                    <rect key="frame" x="0.0" y="134" width="393" height="684"/>
-                    <subviews>
-                        <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8OG-Ms-mKC" customClass="DrawSignatureView" customModule="PDFEditor" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="684"/>
-                            <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="0.21394026360544219" colorSpace="custom" customColorSpace="sRGB"/>
-                            <gestureRecognizers/>
-                        </view>
-                    </subviews>
+                    <rect key="frame" x="0.0" y="134" width="393" height="584"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <constraints>
-                        <constraint firstItem="8OG-Ms-mKC" firstAttribute="top" secondItem="x3d-Zl-7cb" secondAttribute="top" id="Ods-1H-Gat"/>
-                        <constraint firstItem="8OG-Ms-mKC" firstAttribute="leading" secondItem="x3d-Zl-7cb" secondAttribute="leading" id="YLB-ao-THr"/>
-                        <constraint firstAttribute="bottom" secondItem="8OG-Ms-mKC" secondAttribute="bottom" id="gRO-9H-A18"/>
-                        <constraint firstAttribute="trailing" secondItem="8OG-Ms-mKC" secondAttribute="trailing" id="vyK-zE-WyH"/>
-                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qUv-XL-Qb5" customClass="PDFThumbnailView">
+                    <rect key="frame" x="0.0" y="718" width="393" height="100"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="x3d-Zl-7cb" secondAttribute="bottom" id="26U-IR-1ey"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="x3d-Zl-7cb" secondAttribute="bottom" constant="100" id="26U-IR-1ey"/>
                 <constraint firstItem="NsL-AQ-G6u" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Cej-zc-BAX"/>
                 <constraint firstItem="Gmj-vU-8TB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="F5e-vu-44j"/>
+                <constraint firstItem="qUv-XL-Qb5" firstAttribute="top" secondItem="x3d-Zl-7cb" secondAttribute="bottom" id="Lkk-y0-kKl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="qUv-XL-Qb5" secondAttribute="trailing" id="OUF-xB-Fje"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="NsL-AQ-G6u" secondAttribute="trailing" id="VRt-c5-v8N"/>
+                <constraint firstItem="qUv-XL-Qb5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="WPe-a3-jTB"/>
                 <constraint firstItem="x3d-Zl-7cb" firstAttribute="top" secondItem="NsL-AQ-G6u" secondAttribute="bottom" constant="5" id="aRp-Gs-gpd"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="x3d-Zl-7cb" secondAttribute="trailing" id="b47-9x-Dwa"/>
                 <constraint firstItem="NsL-AQ-G6u" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="d7T-hY-eFR"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="qUv-XL-Qb5" secondAttribute="bottom" id="eax-5O-d9T"/>
                 <constraint firstItem="x3d-Zl-7cb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="haB-kx-eQp"/>
                 <constraint firstItem="Gmj-vU-8TB" firstAttribute="top" secondItem="NsL-AQ-G6u" secondAttribute="bottom" constant="5" id="zF5-AG-o5o"/>
             </constraints>
@@ -171,13 +166,13 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
