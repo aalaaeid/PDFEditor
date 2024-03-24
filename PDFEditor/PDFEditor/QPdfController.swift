@@ -31,7 +31,9 @@ class QPdfController: UIViewController {
       
         pdfView.addGestureRecognizer(pdfDrawingGestureRecognizer)
         pdfDrawingGestureRecognizer.drawingDelegate = pdfDrawer
+        pdfDrawingGestureRecognizer.isEnabled = false
         pdfDrawer.pdfView = pdfView
+        pdfDrawer.drawingTool = .pen
         
         pdfView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         pdfView.autoScales = true
@@ -48,7 +50,7 @@ class QPdfController: UIViewController {
         thumbnailView.pdfView = pdfView
         thumbnailView.thumbnailSize = CGSize(width: 70, height: 70)
         thumbnailView.layoutMode = .horizontal
-        thumbnailView.backgroundColor = .white
+        thumbnailView.backgroundColor = .lightGray
         
     }
     
@@ -61,7 +63,8 @@ class QPdfController: UIViewController {
         }
     }
     
-    @IBAction func penTapped(_ sender: Any) {
+    @IBAction func penTapped(_ sender: Any) {       
+        pdfDrawer.drawingTool = .pen
         pdfDrawingGestureRecognizer.isEnabled = true
   
     }
@@ -86,21 +89,35 @@ class QPdfController: UIViewController {
     }
     
     @IBAction func eraseTapped(_ sender: Any) {
+        pdfDrawer.drawingTool = .eraser
+
 
     }
     
     @IBAction func confirmSignatureTapped(_ sender: Any) {
-   
-        guard let pdfData = pdfDrawer.renderPDF()
-        else { return print("pdfData is nil") }
         
-        guard let modifiedPDf = PDFDocument(data: pdfData) else { return print("document is nil") }
-        pdfView.document = modifiedPDf
+        let data = pdfView.document?.dataRepresentation()
+                    
+        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            print(documentDirectory.absoluteString)
+            let docURL = documentDirectory.appendingPathComponent("Scanned-Docs.pdf")
+            
+            do{
+                try data?.write(to: docURL, options: [.atomic, .completeFileProtection])
 
+            }catch(let error){
+                print("error is \(error.localizedDescription)")
+            }
+        }
         pdfDrawingGestureRecognizer.isEnabled = false
     }
     
     @IBAction func dismissSignatureTapped(_ sender: Any) {
+        if let fileURL = Bundle.main.url(forResource: "sample", withExtension: "pdf") {
+            pdfView.document = PDFDocument(url: fileURL)
+        }
+        //this line for reloading thumbnailView to remove all drawings
+        thumbnailView.pdfView = pdfView
     }
     
     
